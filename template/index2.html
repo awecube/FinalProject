@@ -102,24 +102,34 @@
           {% block content %}{% endblock %}
   </div>
 
-  <h3 style="margin: auto;width: 80%; text-align: center; margin-top: 20px;  text-transform: uppercase">Pneumonia X-Ray Classification</h3>
-
-   <div style="text-align: center; margin-top: 20px">
-       <img style="max-width: 600px" src="{{ url_for('static', filename='Pneumonia.jpg') }}"/>
-   </div>
-
-  <form action="/upload11" method="post" enctype="multipart/form-data" style="margin-top: 30px; width: 80%; text-align: center; margin: auto;" onsubmit="showloading()">
-      <span class="btn btn-default btn-file">
-        Select Image <input type="file" name="image">
-    </span><br><br>
-        <input type="submit" value="Upload" class="btn btn-primary">
-  </form>
+  
   <hr>
+
+  <div class="jumbotron">
+    <h1 class="display-4">Pneumonia Dectector</h1>
+    <p class="lead">Upload a PA x-ray image</p>
+    <hr class="my-4">
+
+    <div style="display: flex;">
+      <img style="max-width: 350px" src="{{ url_for('static', filename='Pneumonia.jpg') }}"/>
+
+      <form action="/upload11" method="post" enctype="multipart/form-data" style="margin-top: 30px; width: 80%; text-align: right; margin: auto;" onsubmit="showloading()">
+        <span class="btn btn-default btn-file">
+          Select Image <input type="file" name="image">
+        </span><br><br>
+          <input type="submit" value="Upload" class="btn btn-primary">
+      </form>
+    </div>
+
+  </div>
+
   <div style="text-align:center">
   <a href="/"><input type="submit" value="Back to Home"></a></div>
     <div style="text-align: center">
         <img id="loading_image" style="display: none" src="{{ url_for('static', filename='loading.gif')}}">
     </div>
+
+
    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
