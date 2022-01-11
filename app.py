@@ -126,23 +126,6 @@ def send_file(filename):
     return send_from_directory(UPLOAD_FOLDER, filename)
 
 
-# //////////////////////////////////////////////
-
-#app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
-
-# db=SQLAlchemy(app)
-
-# class User(db.Model):
-##   username = db.Column(db.String(20), unique=True, nullable=False)
- #   email = db.Column(db.String(120), unique=True, nullable=False)
-    #image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
- #   password = db.Column(db.String(60), nullable=False)
-    #posts = db.relationship('Post', backref='author', lazy=True)
-
-    # def __repr__(self):
-    #   return f"User('{self.username}', '{self.email}', '{self.image_file}')"
-
-
 @app.route("/")
 @app.route("/home")
 def home():
