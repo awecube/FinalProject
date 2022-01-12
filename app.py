@@ -1,56 +1,26 @@
-# Important Modules
+import tensorflow as tf
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.models import load_model
+from flask import send_from_directory
+import os
+import tensorflow
+import numpy as np
+from flask import request
 import sys
 from flask import Flask, render_template, url_for, flash, redirect
-#from forms import RegistrationForm, LoginForm
 import joblib
-from flask import request
-import numpy as np
-import tensorflow
 
-
-import os
-from flask import send_from_directory
-from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing import image
-import tensorflow as tf
 
 app = Flask(__name__, template_folder='template')
 
 
-# RELATED TO THE SQL DATABASE
-app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
-#app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
-# db=SQLAlchemy(app)
-
-#from model import User,Post
-
-# //////////////////////////////////////////////////////////
-
 dir_path = os.path.dirname(os.path.realpath(__file__))
-# UPLOAD_FOLDER = dir_path + '/uploads'
-# STATIC_FOLDER = dir_path + '/static'
 UPLOAD_FOLDER = 'uploads'
 STATIC_FOLDER = 'static'
 
-#graph = tf.get_default_graph()
-# with graph.as_default():;
+
 model = load_model('model111.h5')
 xrayModel = load_model("x_model.h5")
-
-# FOR THE FIRST MODEL
-
-# call model to predict an image
-
-
-def api(full_path):
-    data = image.load_img(full_path, target_size=(50, 50, 3))
-    data = np.expand_dims(data, axis=0)
-    data = data * 1.0 / 255
-
-    # with graph.as_default():
-    predicted = model.predict(data)
-    return predicted
-# FOR THE SECOND MODEL
 
 
 def api1(full_path):
@@ -58,16 +28,8 @@ def api1(full_path):
     data = np.expand_dims(data, axis=0)
     data = data * 1.0 / 255
 
-    # with graph.as_default():
     predicted = xrayModel.predict(data)
     return predicted
-
-
-# home page
-
-# @app.route('/')
-# def home():
- #  return render_template('index.html')
 
 
 # procesing uploaded file and predict it
@@ -132,86 +94,15 @@ def home():
     return render_template("home.html")
 
 
-@app.route("/about")
-def about():
-    return render_template("about.html")
-
-
-@app.route("/cancer")
-def cancer():
-    return render_template("cancer.html")
-
-
 @app.route("/diabetes")
 def diabetes():
     # if form.validate_on_submit():
     return render_template("diabetes.html")
 
 
-@app.route("/heart")
-def heart():
-    return render_template("heart.html")
-
-
-@app.route("/liver")
-def liver():
-    # if form.validate_on_submit():
-    return render_template("liver.html")
-
-
-@app.route("/kidney")
-def kidney():
-    # if form.validate_on_submit():
-    return render_template("kidney.html")
-
-
-@app.route("/Malaria")
-def Malaria():
-    return render_template("index.html")
-
-
 @app.route("/Pneumonia")
 def Pneumonia():
     return render_template("index2.html")
-
-
-"""
-@app.route("/register", methods=["GET", "POST"])
-def register():
-    form =RegistrationForm()
-    if form.validate_on_submit():
-        #flash("Account created for {form.username.data}!".format("success"))
-        flash("Account created","success")      
-        return redirect(url_for("home"))
-    return render_template("register.html", title ="Register",form=form )
-@app.route("/login", methods=["POST","GET"])
-def login():
-    form =LoginForm()
-    if form.validate_on_submit():
-        #if form.email.data =="sho" and form.password.data=="password":
-        flash("You Have Logged in !","success")
-        return redirect(url_for("home"))
-    #else:
-    #   flash("Login Unsuccessful. Please check username and password","danger")
-    return render_template("login.html", title ="Login",form=form )
-def ValuePredictor1(to_predict_list):
-    to_predict = np.array(to_predict_list).reshape(1,30)
-    loaded_model = joblib.load("model")
-    result = loaded_model.predict(to_predict)
-    return result[0]
-    
-@app.route('/result1',methods = ["GET","POST"])
-def result():
-    if request.method == 'POST':
-        to_predict_list = request.form.to_dict()
-        to_predict_list=list(to_predict_list.values())
-        to_predict_list = list(map(float, to_predict_list))
-        result = ValuePredictor(to_predict_list)
-        if int(result)==1:
-            prediction='cancer'
-        else:
-            prediction='Healthy'       
-    return(render_template("result.html", prediction=prediction))"""
 
 
 def ValuePredictor(to_predict_list, size):
